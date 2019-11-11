@@ -1,0 +1,25 @@
+{
+  "name": "codejam-virtual",
+  "version": "1.0.0",
+  "description": "codejam virtual-keyboard",
+  "main": "app.js",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arguchinsky/codejam-virtual.git"
+  },
+  "author": "Arguchinsky Alexey",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arguchinsky/codejam-virtual/issues"
+  },
+  "homepage": "https://github.com/arguchinsky/codejam-virtual#readme"
+}
