@@ -1,8 +1,10 @@
+  
 const paint = document.querySelector(".paint");
 const brush = document.querySelector(".brush");
 const pencil = document.querySelector(".pencil");
 const colors = document.querySelector(".colors");
 const canvas = document.querySelector(".canvas");
+const ctx = canvas.getContext("2d");
 const tools = {
   paintTool: false,
   brushTool: false,
@@ -106,42 +108,48 @@ canvas.addEventListener("click", (event) => {
 
   if (tools.paintTool) {
     t.style.backgroundColor = currentColor;
-  };
+  }
 });
 
-// if (tools.pencilTool) {
-//      canvas.addEventListener('mousedown', function(){
-//         isMouseDown =true;
-//      });
-//      canvas.addEventListener('mouseup', function(){
-//         isMouseDown =false;
-//      });
-//
-//      canvas.addEventListener('mousemove', function(e){
-//         if(isMouseDown){
-//         pencil.lineTo(e.clientX, e.clientY);
-//         pencil.stroke();
-//
-//         pencil.beginPath();
-//         pencil.arc(e.clientX, e.clientY, 10, 0, Math.PI *2);
-//         pencil.fill();
-//
-//         pencil.beginPath();
-//         pencil.moveTo(e.clientX, e.clientY);
-//      }
-//      })
-//
-//      canvas.addEventListener("click", (event) =>{
-//         let t = event.target;
-//         if (!t.classList.contains("block")) return;
-//
-//         if (tools.pencilTool) {
-//           t.style.('mousemove');
-//         };
-//  });
+let isMouseDown = false;
+const coord = { x: 0, y: 0 };
+canvas.addEventListener("mousedown", function (e) {
+    coord.x = Math.floor(e.pageX - canvas.offsetLeft);
+    coord.y = Math.floor(e.pageY - canvas.offsetTop);
+    isMouseDown = true;
+});
 
+canvas.addEventListener("mouseup", function () {
+    isMouseDown = false;
+});
 
-// сохранение состояния элементов в LocalStorage
+canvas.addEventListener("mousemove", function (e) {
+    if (!tools.pencilTool) {
+        return;
+    }
+
+    if (isMouseDown) {
+        const prevX = coord.x;
+        const prevY = coord.y;
+        coord.x = Math.floor(e.pageX - canvas.offsetLeft);
+        coord.y = Math.floor(e.pageY - canvas.offsetTop);
+        const movementY = coord.y - prevY;
+        const movementX = coord.x - prevX;
+        ctx.fillStyle = currentColor;
+        ctx.strokeStyle = currentColor;
+        const axis = movementY > movementX ? movementY : movementX;
+
+        if (Math.abs(movementY) > 1 || Math.abs(movementX) > 1) {
+            ctx.beginPath();
+            ctx.moveTo(prevX, prevY);
+            ctx.lineTo(coord.x, coord.y);
+            ctx.stroke();
+        } else {
+            ctx.fillRect(coord.x, coord.y, 1, 1);
+        }
+    }
+});
+
 canvas.addEventListener("click", (event) => {
   let t = event.target;
   if (!t.classList.contains("block")) return;
