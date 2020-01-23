@@ -1,4 +1,4 @@
-  
+
 const paint = document.querySelector(".paint");
 const brush = document.querySelector(".brush");
 const pencil = document.querySelector(".pencil");
@@ -30,23 +30,7 @@ function activateTool (activeTool, activeClass){
   }
 }
 
-// активация инструментов при клике
-paint.addEventListener("click", () => activateTool("paintTool", paint));
 
-brush.addEventListener("click", () => activateTool("brushTool", brush));
-
-pencil.addEventListener("click", () => activateTool("pencilTool", pencil));
-
-// активация инструментов при нажатии горячих клавиш
-window.addEventListener("keydown", function(event) {
-  if (event.keyCode == 80) {
-    activateTool("paintTool", paint);
-  } else if (event.keyCode == 67) {
-    activateTool("brushTool", brush);
-  } else if (event.keyCode == 77) {
-    activateTool("pencilTool", pencil);
-  }
-});
 
 // смена текущего цвета по клику инструментами brushTool и paintTool
 // смена цветов в поле colors при клике brushTool
@@ -148,6 +132,24 @@ canvas.addEventListener("mousemove", function (e) {
             ctx.fillRect(coord.x, coord.y, 1, 1);
         }
     }
+});
+
+// активация инструментов при клике
+paint.addEventListener("click", () => activateTool("paintTool", paint));
+
+brush.addEventListener("click", () => activateTool("brushTool", brush));
+
+pencil.addEventListener("click", () => activateTool("pencilTool", pencil));
+
+// активация инструментов при нажатии горячих клавиш
+window.addEventListener("keydown", function(event) {
+  if (event.keyCode == 66) {
+    activateTool("paintTool", paint);
+} else if (event.keyCode == 67) {
+    activateTool("brushTool", brush);
+} else if (event.keyCode == 80) {
+    activateTool("pencilTool", pencil);
+  }
 });
 
 canvas.addEventListener("click", (event) => {
